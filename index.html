@@ -1,11 +1,9 @@
-from pathlib import Path
-
-html = """<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ABCS - ART GALLERY</title>
+<title>ABCS-Art Gallery</title>
 <style>
 :root{color-scheme:light dark;--bg:light-dark(#f5f2ec,#11100f);--surface:light-dark(#fffdf9,#191816);--ink:light-dark(#191714,#f4efe8);--muted:light-dark(#756f67,#aaa39a);--line:light-dark(#ded8cf,#34312d);--accent:light-dark(#a44d2d,#d77b57)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif}.app{min-height:100vh;background:var(--bg)}
@@ -18,29 +16,24 @@ footer{border-top:1px solid var(--line);padding:30px 5vw;display:flex;justify-co
 @media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{height:300px}.grid{grid-template-columns:1fr 1fr;gap:30px 12px}.panel{grid-template-columns:1fr}.modal-img{min-height:320px}.panel-copy{padding:25px}.nav{gap:10px}.logo{font-size:18px}}
 </style></head>
 <body><div class="app">
-<header><div class="logo">LUMEN / 26</div><nav class="nav"><button onclick="scrollToGallery()">COLLECTION</button><button onclick="showAbout()">ABOUT</button><button onclick="showVisit()">VISIT</button></nav></header>
-<section class="hero"><div><div class="eyebrow">Independent Art Space · 2026</div><h1>Art,<br>unframed.</h1><p>Lumen is a contemporary gallery for emerging voices, quiet experiments, and work that asks you to look twice.</p></div><div class="hero-art"></div></section>
+<header><div class="logo">ABCS-ART GALLERY</div><nav class="nav"><button onclick="scrollToGallery()">COLLECTION</button><button onclick="showAbout()">ABOUT</button><button onclick="showVisit()">VISIT</button></nav></header>
+<section class="hero"><div><div class="eyebrow">ABCS-Art Gallery · 2026</div><h1>Art,<br>with purpose.</h1><p>ABCS-Art Gallery celebrates creativity, culture, and emerging artistic voices through a curated collection of meaningful works.</p></div><div class="hero-art"></div></section>
 <div class="toolbar"><div class="filters"><button class="active" data-filter="All">All</button><button data-filter="Painting">Painting</button><button data-filter="Photography">Photography</button><button data-filter="Sculpture">Sculpture</button></div><div class="count" id="count">6 works</div></div>
 <main class="grid" id="gallery"></main>
-<footer><span>LUMEN ART GALLERY · NEW YORK / ONLINE</span><span>OPEN WED—SUN · 11—18</span></footer>
+<footer><span>ABCS-ART GALLERY · ONLINE</span><span>OPEN WED—SUN · 11—18</span></footer>
 <div class="modal" id="modal"><button class="close" onclick="closeModal()">×</button><div class="panel"><div class="modal-img" id="modalImg"></div><div class="panel-copy"><div class="eyebrow" id="modalType"></div><h2 id="modalTitle"></h2><div class="artist" id="modalArtist"></div><p id="modalDesc"></p></div></div></div>
 </div>
 <script>
 const works=[
-{title:'After the Rain',artist:'Mara Lin',year:'2026',type:'Painting',cls:'art1',desc:'A study in memory and weather, built from mineral pigments and layered linen.'},
-{title:'Blue Hour, No. 4',artist:'Elias Moore',year:'2025',type:'Photography',cls:'art2',desc:'Night landscapes photographed between the last light and the first artificial glow.'},
-{title:'Still / Moving',artist:'Noa Reyes',year:'2026',type:'Sculpture',cls:'art3',desc:'A geometric conversation between weight, balance, and the human gesture.'},
-{title:'Garden Study',artist:'Aya Nakamura',year:'2025',type:'Painting',cls:'art4',desc:'Organic forms and restrained color explore the boundary between body and landscape.'},
-{title:'Soft Geometry',artist:'Jon Bell',year:'2026',type:'Sculpture',cls:'art5',desc:'Found materials are compressed into a minimal composition with a tactile center.'},
-{title:'The Distance Between',artist:'Clara Voss',year:'2024',type:'Photography',cls:'art6',desc:'An ongoing photographic series about absence, architecture, and quiet thresholds.'}
+{title:'After the Rain',artist:'ABCS Artist',year:'2026',type:'Painting',cls:'art1',desc:'A contemporary painting exploring memory, atmosphere, and the quiet beauty of change.'},
+{title:'Blue Hour',artist:'ABCS Artist',year:'2026',type:'Photography',cls:'art2',desc:'A photographic study of light, space, and the moments between day and night.'},
+{title:'Still / Moving',artist:'ABCS Artist',year:'2026',type:'Sculpture',cls:'art3',desc:'A sculptural exploration of form, balance, movement, and human expression.'},
+{title:'Garden Study',artist:'ABCS Artist',year:'2026',type:'Painting',cls:'art4',desc:'Organic forms and natural textures explore the relationship between people and nature.'},
+{title:'Soft Geometry',artist:'ABCS Artist',year:'2026',type:'Sculpture',cls:'art5',desc:'A minimal sculptural composition focused on shape, texture, and material.'},
+{title:'The Distance Between',artist:'ABCS Artist',year:'2026',type:'Photography',cls:'art6',desc:'A photographic work reflecting on distance, architecture, connection, and quiet spaces.'}
 ];
 const gallery=document.getElementById('gallery');
 function render(filter='All'){const list=filter==='All'?works:works.filter(w=>w.type===filter);gallery.innerHTML=list.map((w,i)=>`<article class="card" onclick="openModal(${works.indexOf(w)})"><div class="image"><span class="${w.cls}"></span></div><div class="meta"><div><div class="title">${w.title}</div><div class="artist">${w.artist}</div></div><div class="year">${w.year}</div></div></article>`).join('');document.getElementById('count').textContent=`${list.length} works`}
 function openModal(i){const w=works[i];document.getElementById('modal').classList.add('open');document.getElementById('modalImg').className='modal-img '+w.cls;document.getElementById('modalType').textContent=w.type+' · '+w.year;document.getElementById('modalTitle').textContent=w.title;document.getElementById('modalArtist').textContent=w.artist;document.getElementById('modalDesc').textContent=w.desc}
-function closeModal(){document.getElementById('modal').classList.remove('open')}function scrollToGallery(){document.getElementById('gallery').scrollIntoView({behavior:'smooth'})}function showAbout(){alert('Lumen is an independent contemporary art space focused on emerging artists and experimental practices.')}function showVisit(){alert('Visit: 42 Mercer Street, New York · Wed–Sun, 11:00–18:00')}document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter)});document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()};render();
-</script></body></html>"""
-
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-print(f"Đã tạo: {path}")
-print(f"Kích thước: {path.stat().st_size:,} bytes")
+function closeModal(){document.getElementById('modal').classList.remove('open')}function scrollToGallery(){document.getElementById('gallery').scrollIntoView({behavior:'smooth'})}function showAbout(){alert('ABCS-Art Gallery is a creative space dedicated to celebrating art, culture, and emerging artists.')}function showVisit(){alert('Visit ABCS-Art Gallery · Online exhibition space · Wed–Sun, 11:00–18:00')}document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter)});document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()};render();
+</script></body></html>
